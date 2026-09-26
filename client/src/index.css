@@ -1,67 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Warm off-white background */
+    --background: 40 33% 98%;
+    /* Deep navy text */
+    --foreground: 220 30% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 30% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 30% 15%;
 
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 20% 98%;
+    /* Teal primary */
+    --primary: 180 70% 30%;
+    --primary-foreground: 180 20% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Navy secondary */
+    --secondary: 220 50% 20%;
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted emerald */
+    --muted: 150 20% 92%;
+    --muted-foreground: 150 15% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 30% 90%;
+    --accent-foreground: 180 70% 30%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    --ring: 180 70% 30%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 20% 98%;
+    /* Deep navy background */
+    --background: 220 50% 10%;
+    --foreground: 40 33% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 20% 98%;
+    --card: 220 40% 15%;
+    --card-foreground: 40 33% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 220 40% 15%;
+    --popover-foreground: 40 33% 98%;
 
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Teal primary */
+    --primary: 180 60% 45%;
+    --primary-foreground: 220 50% 10%;
 
-    --secondary: 217.2 32.4% 15.2%;
-    --secondary-foreground: 210 20% 98%;
+    /* Muted navy secondary */
+    --secondary: 220 30% 25%;
+    --secondary-foreground: 40 33% 98%;
 
-    --muted: 217.2 32.4% 15.2%;
-    --muted-foreground: 215 20.2% 65.1%;
+    /* Muted emerald */
+    --muted: 150 20% 20%;
+    --muted-foreground: 150 15% 70%;
 
-    --accent: 217.2 32.4% 15.2%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 180 30% 20%;
+    --accent-foreground: 180 60% 45%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.4% 15.2%;
-    --input: 217.2 32.4% 15.2%;
-    --ring: 217.2 91.2% 59.8%;
+    --border: 220 30% 25%;
+    --input: 220 30% 25%;
+    --ring: 180 60% 45%;
   }
 }
 
@@ -98,16 +107,15 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
-    /* Using Inter font for a modern look */
   }
 }
 
-/* Custom container for consistent padding and centering */
+/* Custom container */
 .container {
   @apply mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-/* Custom styles for a more polished look */
+/* Custom styles */
 .card {
   @apply rounded-lg border bg-card text-card-foreground shadow-sm;
 }
@@ -128,46 +136,26 @@
   @apply p-6 pt-0;
 }
 
-.button {
-  @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+/* Typography for official report feel */
+h1, h2, h3, h4, h5, h6, .serif-heading {
+  font-family: 'Playfair Display', serif;
 }
 
-.button-default {
-  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+/* Utility classes for data sources */
+.badge-verified {
+  @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300;
 }
 
-.button-outline {
-  @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+.badge-estimate {
+  @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
 }
 
-.input {
-  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+.source-footnote {
+  @apply text-xs text-muted-foreground italic mt-2 block;
 }
 
-.select-trigger {
-  @apply flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1;
-}
-
-.slider-track {
-  @apply relative h-2 w-full grow overflow-hidden rounded-full bg-secondary;
-}
-
-.slider-range {
-  @apply absolute h-full bg-primary;
-}
-
-.slider-thumb {
-  @apply block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-}
-
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Inter', sans-serif;
+.panel-elevated {
+  @apply bg-card rounded-xl border border-border/50 shadow-md backdrop-blur-sm bg-opacity-90 dark:bg-opacity-80;
 }
 
 /* 3D Layout Styles */
@@ -185,7 +173,7 @@ h6 {
 
 .hover-3d:hover {
   transform: rotateX(8deg) rotateY(-8deg) scale(1.03) translateZ(20px);
-  box-shadow: -15px 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255,255,255,0.1);
+  box-shadow: -15px 15px 30px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255,255,255,0.1);
   z-index: 10;
 }
 

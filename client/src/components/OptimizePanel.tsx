@@ -31,15 +31,15 @@ export function OptimizePanel({ city, onApply }: Props) {
   const pct = (a: number, b: number) => (((a - b) / b) * 100).toFixed(1);
 
   return (
-    <Card className="border-violet-100 bg-gradient-to-br from-violet-50 to-indigo-50">
+    <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Sparkles className="h-5 w-5 text-violet-600" /> AI Policy Optimizer
+        <CardTitle className="flex items-center gap-2 text-lg serif-heading">
+          <Sparkles className="h-5 w-5 text-primary" /> AI Policy Optimizer
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-sm font-semibold text-slate-700 mb-2">What is your priority?</p>
+          <p className="text-sm font-semibold text-foreground mb-2">What is your priority?</p>
           <div className="flex flex-wrap gap-2">
             {GOALS.map((g) => (
               <button
@@ -47,8 +47,8 @@ export function OptimizePanel({ city, onApply }: Props) {
                 onClick={() => setGoal(g.value)}
                 className={`rounded-full px-3 py-1 text-xs font-medium border transition ${
                   goal === g.value
-                    ? "bg-violet-600 text-white border-violet-600"
-                    : "bg-white text-slate-600 border-slate-200 hover:border-violet-400"
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card text-muted-foreground border-border hover:border-primary"
                 }`}
               >
                 {g.label}
@@ -60,7 +60,7 @@ export function OptimizePanel({ city, onApply }: Props) {
         <Button
           onClick={() => optimizeMutation.mutate({ city, goal })}
           disabled={optimizeMutation.isPending}
-          className="w-full bg-violet-600 hover:bg-violet-700 text-white"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
         >
           {optimizeMutation.isPending ? (
             <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Optimizing...</>
@@ -80,9 +80,9 @@ export function OptimizePanel({ city, onApply }: Props) {
                 ["Plastic Recycling", result.recommended_levers.plastic_recycling_pct],
                 ["Public Transport", result.recommended_levers.public_transport_usage_pct],
               ].map(([label, val]) => (
-                <div key={label as string} className="flex justify-between rounded-lg bg-white px-3 py-2 text-sm border border-violet-100">
-                  <span className="text-slate-600">{label}</span>
-                  <span className="font-bold text-violet-700">{val}%</span>
+                <div key={label as string} className="flex justify-between rounded-lg bg-card px-3 py-2 text-sm border border-border">
+                  <span className="text-muted-foreground">{label}</span>
+                  <span className="font-bold text-primary">{val}%</span>
                 </div>
               ))}
             </div>
@@ -98,15 +98,15 @@ export function OptimizePanel({ city, onApply }: Props) {
                 const delta = parseFloat(pct(pred, base));
                 const good = lower ? delta < 0 : delta > 0;
                 return (
-                  <div key={label} className="rounded-lg bg-white px-3 py-2 border border-violet-100">
-                    <p className="text-xs text-slate-500">{label}</p>
+                  <div key={label} className="rounded-lg bg-card px-3 py-2 border border-border">
+                    <p className="text-xs text-muted-foreground">{label}</p>
                     <div className="flex items-center gap-1 mt-0.5">
-                      {good ? <TrendingDown className="h-3 w-3 text-emerald-600" /> : <TrendingUp className="h-3 w-3 text-red-500" />}
-                      <span className={`text-sm font-bold ${good ? "text-emerald-600" : "text-red-500"}`}>
+                      {good ? <TrendingDown className="h-3 w-3 text-primary" /> : <TrendingUp className="h-3 w-3 text-destructive" />}
+                      <span className={`text-sm font-bold ${good ? "text-primary" : "text-destructive"}`}>
                         {delta > 0 ? "+" : ""}{delta}%
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400">{Math.round(base)} → {Math.round(pred)}</p>
+                    <p className="text-xs text-muted-foreground">{Math.round(base)} → {Math.round(pred)}</p>
                   </div>
                 );
               })}
@@ -115,7 +115,7 @@ export function OptimizePanel({ city, onApply }: Props) {
             <Button
               onClick={() => onApply(result.recommended_levers)}
               variant="outline"
-              className="w-full border-violet-300 text-violet-700 hover:bg-violet-50"
+              className="w-full border-primary text-primary hover:bg-primary/5"
             >
               Apply These Levers
             </Button>

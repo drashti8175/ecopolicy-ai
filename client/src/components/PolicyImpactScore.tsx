@@ -13,10 +13,10 @@ interface Props {
 }
 
 function grade(score: number): { label: string; emoji: string; color: string; ring: string } {
-  if (score >= 80) return { label: "Excellent", emoji: "🟢", color: "text-emerald-600", ring: "ring-emerald-400" };
-  if (score >= 60) return { label: "Good",      emoji: "🔵", color: "text-blue-600",    ring: "ring-blue-400" };
-  if (score >= 40) return { label: "Moderate",  emoji: "🟡", color: "text-yellow-600",  ring: "ring-yellow-400" };
-  return              { label: "Poor",      emoji: "🔴", color: "text-red-600",     ring: "ring-red-400" };
+  if (score >= 80) return { label: "Excellent", emoji: "🟢", color: "text-primary",     ring: "ring-primary" };
+  if (score >= 60) return { label: "Good",      emoji: "🔵", color: "text-primary/80",   ring: "ring-primary/60" };
+  if (score >= 40) return { label: "Moderate",  emoji: "🟡", color: "text-yellow-600",   ring: "ring-yellow-400" };
+  return              { label: "Poor",      emoji: "🔴", color: "text-destructive",  ring: "ring-destructive" };
 }
 
 export function PolicyImpactScore({ co2Delta, co2Baseline, aqiDelta, aqiBaseline, greenDelta, elecDelta, elecBaseline }: Props) {
@@ -37,10 +37,10 @@ export function PolicyImpactScore({ co2Delta, co2Baseline, aqiDelta, aqiBaseline
   ];
 
   return (
-    <Card className="border-emerald-100 bg-gradient-to-br from-emerald-50 to-green-50">
+    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent">
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <Award className="h-5 w-5 text-emerald-600" /> Policy Impact Score
+        <CardTitle className="flex items-center gap-2 text-base serif-heading">
+          <Award className="h-5 w-5 text-primary" /> Policy Impact Score
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -50,9 +50,9 @@ export function PolicyImpactScore({ co2Delta, co2Baseline, aqiDelta, aqiBaseline
             <span className={`text-3xl font-black ${g.color}`}>{overall}</span>
           </div>
           <div>
-            <p className="text-slate-400 text-xs">out of 100</p>
+            <p className="text-muted-foreground text-xs">out of 100</p>
             <p className={`text-xl font-bold ${g.color}`}>{g.emoji} {g.label}</p>
-            <p className="text-xs text-slate-500 mt-0.5">Based on all 4 climate metrics</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Based on all 4 climate metrics</p>
           </div>
         </div>
 
@@ -61,12 +61,12 @@ export function PolicyImpactScore({ co2Delta, co2Baseline, aqiDelta, aqiBaseline
           {factors.map((f) => (
             <div key={f.label}>
               <div className="flex justify-between text-xs mb-0.5">
-                <span className="text-slate-600">{f.label} <span className="text-slate-400">({f.weight})</span></span>
-                <span className="font-semibold text-slate-700">{f.score}</span>
+                <span className="text-muted-foreground">{f.label} <span className="text-muted-foreground/60">({f.weight})</span></span>
+                <span className="font-semibold text-foreground">{f.score}</span>
               </div>
-              <div className="h-1.5 rounded-full bg-slate-100">
+              <div className="h-1.5 rounded-full bg-muted">
                 <div
-                  className="h-1.5 rounded-full bg-emerald-500 transition-all duration-700"
+                  className="h-1.5 rounded-full bg-primary transition-all duration-700"
                   style={{ width: `${f.score}%` }}
                 />
               </div>

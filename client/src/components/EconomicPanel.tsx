@@ -66,24 +66,24 @@ export function EconomicPanel({ levers, baselineLevers, greenScore, co2Reduction
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Economic Cost */}
-      <Card className="border-amber-100 bg-gradient-to-br from-amber-50 to-orange-50">
+      <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent">
         <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-base">
-            <IndianRupee className="h-4 w-4 text-amber-600" /> Estimated Investment
+          <CardTitle className="flex items-center gap-2 text-base serif-heading">
+            <IndianRupee className="h-4 w-4 text-primary" /> Estimated Investment
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          <p className="text-3xl font-bold text-amber-700">₹{total} Cr</p>
+          <p className="text-3xl font-bold text-primary">₹{total} Cr</p>
           <div className="space-y-1 pt-1">
             {Object.entries(costs).map(([label, val]) => (
               <div key={label} className="flex justify-between text-sm">
-                <span className="text-slate-600">{label}</span>
-                <span className="font-semibold text-slate-800">₹{val} Cr</span>
+                <span className="text-muted-foreground">{label}</span>
+                <span className="font-semibold text-foreground">₹{val} Cr</span>
               </div>
             ))}
           </div>
           {total > 0 && (
-            <div className="mt-3 rounded-lg bg-amber-100 px-3 py-2 text-xs text-amber-800">
+            <div className="mt-3 rounded-lg bg-primary/10 px-3 py-2 text-xs text-primary">
               CO₂ saved: <strong>{Math.abs(co2Reduction).toFixed(0)} MT</strong> ·
               AQI improved: <strong>{Math.abs(aqiReduction).toFixed(0)} pts</strong>
             </div>
@@ -92,16 +92,16 @@ export function EconomicPanel({ levers, baselineLevers, greenScore, co2Reduction
       </Card>
 
       {/* SDG Alignment */}
-      <Card className="border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50">
+      <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
         <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-base">
-            <Leaf className="h-4 w-4 text-teal-600" /> SDG Alignment
+          <CardTitle className="flex items-center gap-2 text-base serif-heading">
+            <Leaf className="h-4 w-4 text-primary" /> SDG Alignment
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="flex items-baseline gap-2">
-            <p className="text-3xl font-bold text-teal-700">{sdgOverall}</p>
-            <span className="text-sm text-slate-500">/ 100</span>
+            <p className="text-3xl font-bold text-primary">{sdgOverall}</p>
+            <span className="text-sm text-muted-foreground">/ 100</span>
           </div>
           <div className="space-y-2 pt-1">
             {SDG_LIST.map((sdg) => {
@@ -109,12 +109,12 @@ export function EconomicPanel({ levers, baselineLevers, greenScore, co2Reduction
               return (
                 <div key={sdg.id}>
                   <div className="flex justify-between text-xs mb-0.5">
-                    <span className="text-slate-600">{sdg.icon} SDG {sdg.id} · {sdg.label}</span>
-                    <span className="font-semibold text-teal-700">{score}%</span>
+                    <span className="text-muted-foreground">{sdg.icon} SDG {sdg.id} · {sdg.label}</span>
+                    <span className="font-semibold text-primary">{score}%</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-teal-100">
+                  <div className="h-1.5 rounded-full bg-muted">
                     <div
-                      className="h-1.5 rounded-full bg-teal-500 transition-all duration-500"
+                      className="h-1.5 rounded-full bg-primary transition-all duration-500"
                       style={{ width: `${score}%` }}
                     />
                   </div>

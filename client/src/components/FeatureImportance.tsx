@@ -25,7 +25,8 @@ const IMPORTANCE = {
   plastic_recycling_pct:       { label: "Plastic Recycling", co2: 1,  aqi: 0.3 },
 };
 
-const COLORS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"];
+// Theme-aligned color set: teal, navy, teal-lighter, teal-darker, slate
+const COLORS = ["hsl(180,70%,30%)", "hsl(220,50%,20%)", "hsl(180,60%,40%)", "hsl(180,50%,20%)", "hsl(220,30%,45%)"];
 
 export function FeatureImportance({ levers, baselineLevers }: Props) {
   const totalCo2Weight = Object.values(IMPORTANCE).reduce((s, v) => s + v.co2, 0);
@@ -45,16 +46,16 @@ export function FeatureImportance({ levers, baselineLevers }: Props) {
   }).sort((a, b) => b["CO₂ Impact"] - a["CO₂ Impact"]);
 
   return (
-    <Card className="border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50">
+    <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <Brain className="h-5 w-5 text-indigo-600" /> Explainable AI — Factor Importance
+        <CardTitle className="flex items-center gap-2 text-base serif-heading">
+          <Brain className="h-5 w-5 text-secondary" /> Explainable AI — Factor Importance
         </CardTitle>
-        <p className="text-xs text-slate-500">Why did the model predict this? Top drivers of CO₂ &amp; AQI change.</p>
+        <p className="text-xs text-muted-foreground">Why did the model predict this? Top drivers of CO₂ &amp; AQI change.</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">CO₂ Reduction Drivers</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">CO₂ Reduction Drivers</p>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={data} layout="vertical" margin={{ left: 8, right: 16 }}>
               <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
@@ -68,7 +69,7 @@ export function FeatureImportance({ levers, baselineLevers }: Props) {
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">AQI Improvement Drivers</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">AQI Improvement Drivers</p>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={data} layout="vertical" margin={{ left: 8, right: 16 }}>
               <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
@@ -81,7 +82,7 @@ export function FeatureImportance({ levers, baselineLevers }: Props) {
           </ResponsiveContainer>
         </div>
 
-        <p className="text-xs text-slate-400 italic">
+        <p className="text-xs text-muted-foreground italic">
           Importance scores reflect model coefficients. Levers not moved from baseline are shown dimmed.
         </p>
       </CardContent>

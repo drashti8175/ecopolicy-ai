@@ -261,17 +261,20 @@ export default function Dashboard() {
   const baseline = cityBaselines?.find((c) => c.city === selectedCity);
 
   return (
-    <div className="min-h-screen bg-[#f4f8f5] p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-background p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8 overflow-hidden rounded-3xl bg-[radial-gradient(circle_at_80%_0%,#4ade80_0%,transparent_30%),linear-gradient(115deg,#073b2a,#0f766e)] px-6 py-8 text-white shadow-xl sm:px-10">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-8 relative overflow-hidden rounded-3xl bg-secondary px-6 py-8 text-white shadow-xl sm:px-10">
+          <div className="absolute inset-0 opacity-20 pointer-events-none">
+            <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary blur-3xl"></div>
+          </div>
+          <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-emerald-100"><Leaf className="h-4 w-4" /> URBAN CLIMATE DECISION STUDIO</div>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">EcoPolicy AI</h1>
-              <p className="mt-2 max-w-xl text-emerald-50">Model the impact of climate actions and shape a healthier future for Indian cities.</p>
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-primary-foreground/80"><Leaf className="h-4 w-4" /> URBAN CLIMATE DECISION STUDIO</div>
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl serif-heading text-white">EcoPolicy AI</h1>
+              <p className="mt-2 max-w-xl text-secondary-foreground/80">Model the impact of climate actions and shape a healthier future for Indian cities.</p>
             </div>
-            <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm backdrop-blur-sm"><span className="text-emerald-100">Selected city</span><p className="mt-1 text-lg font-semibold">{selectedCity}</p></div>
+            <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm backdrop-blur-sm"><span className="text-primary-foreground/70">Selected city</span><p className="mt-1 text-lg font-semibold text-white">{selectedCity}</p></div>
           </div>
         </div>
 
@@ -279,7 +282,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Panel: Controls */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-6 border-emerald-100 shadow-lg shadow-emerald-950/5">
+            <Card className="sticky top-6 border-border shadow-lg shadow-secondary/5">
               <CardHeader>
                 <CardTitle>Policy Simulation</CardTitle>
                 <CardDescription>Adjust levers and simulate impact</CardDescription>
@@ -287,7 +290,7 @@ export default function Dashboard() {
               <CardContent className="space-y-6">
                 {/* City Selector */}
                 <div>
-                  <label className="text-sm font-semibold text-slate-700 mb-2 block">Select City</label>
+                  <label className="text-sm font-semibold text-foreground mb-2 block">Select City</label>
                   <Select value={selectedCity} onValueChange={handleCityChange}>
                     <SelectTrigger>
                       <SelectValue />
@@ -304,17 +307,17 @@ export default function Dashboard() {
                     <Input value={customCity} onChange={(event) => setCustomCity(event.target.value)} onKeyDown={(event) => event.key === "Enter" && handleAddCustomCity()} placeholder="Enter another city" />
                     <Button type="button" variant="outline" onClick={handleAddCustomCity}>Add</Button>
                   </div>
-                  <p className="mt-2 text-xs text-slate-500">Any city can be added; it uses a standard planning baseline if no local dataset exists.</p>
+                  <p className="mt-2 text-xs text-muted-foreground">Any city can be added; it uses a standard planning baseline if no local dataset exists.</p>
                 </div>
 
                 {/* Policy Levers */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-slate-700">Policy Levers</h3>
+                  <h3 className="font-semibold text-foreground serif-heading">Policy Levers</h3>
                   {LEVER_CONFIG.map((config) => (
                     <div key={config.key}>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-sm text-slate-600">{config.label}</label>
-                        <span className="text-sm font-semibold text-slate-900">
+                        <label className="text-sm text-muted-foreground">{config.label}</label>
+                        <span className="text-sm font-semibold text-foreground">
                           {Math.round(levers[config.key as keyof typeof levers])}%
                         </span>
                       </div>
@@ -340,7 +343,7 @@ export default function Dashboard() {
                 <Button
                   onClick={handleSimulate}
                   disabled={simulateMutation.isPending}
-                  className="w-full bg-emerald-700 text-white shadow-md hover:bg-emerald-800"
+                  className="w-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
                   size="lg"
                 >
                   {simulateMutation.isPending ? (
@@ -357,7 +360,7 @@ export default function Dashboard() {
                   <Button
                     onClick={handleDownloadReport}
                     disabled={pdfReportMutation.isPending}
-                    className="mt-2 w-full bg-slate-800 text-white hover:bg-slate-900"
+                    className="mt-2 w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
                     size="lg"
                   >
                     {pdfReportMutation.isPending ? (
@@ -372,7 +375,7 @@ export default function Dashboard() {
                 )}
 
                 {simulateMutation.error && (
-                  <div className="text-sm text-red-600 bg-red-50 p-3 rounded">
+                  <div className="text-sm text-destructive bg-destructive/10 p-3 rounded">
                     {simulateMutation.error.message}
                   </div>
                 )}
@@ -385,18 +388,18 @@ export default function Dashboard() {
             {simulationResult ? (
               <>
                 {/* AI Explanation */}
-                <Card className="border-emerald-100 bg-gradient-to-r from-emerald-50 to-teal-50">
+                <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-accent">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg"><Sparkles className="h-5 w-5 text-emerald-700" /> AI Insights</CardTitle>
+                    <CardTitle className="flex items-center gap-2 text-lg serif-heading"><Sparkles className="h-5 w-5 text-primary" /> AI Insights</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {isLoadingLLM ? (
-                      <div className="flex items-center gap-2 text-slate-600">
+                      <div className="flex items-center gap-2 text-muted-foreground">
                         <Loader2 className="h-4 w-4 animate-spin" />
                         <span>Generating AI insights...</span>
                       </div>
                     ) : (
-                      <p className="text-slate-700 leading-relaxed">{llmExplanation || simulationResult.ai_explanation}</p>
+                      <p className="text-foreground leading-relaxed">{llmExplanation || simulationResult.ai_explanation}</p>
                     )}
                   </CardContent>
                 </Card>
@@ -427,25 +430,25 @@ export default function Dashboard() {
                   ].map((metric) => (
                     <Card key={metric.title}>
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium text-slate-600">{metric.title}</CardTitle>
+                        <CardTitle className="text-sm font-medium text-muted-foreground">{metric.title}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
                           <div className="flex items-baseline justify-between">
-                            <span className="text-2xl font-bold text-slate-900">
+                            <span className="text-2xl font-bold text-foreground">
                               {Math.round(metric.result.predicted * 10) / 10}
                             </span>
-                            <span className="text-xs text-slate-500">{metric.unit}</span>
+                            <span className="text-xs text-muted-foreground">{metric.unit}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             {(() => {
                               const isPositive = metric.title === "Green Score" ? metric.result.direction === "up" : metric.result.direction === "down";
                               const isNeutral = metric.result.direction === "same";
-                              if (isNeutral) return <><Minus className="h-4 w-4 text-slate-400" /><span className="text-sm text-slate-500">Move sliders to see impact</span></>;
-                              return isPositive ? <><TrendingDown className={metric.title === "Green Score" ? "h-4 w-4 rotate-180 text-emerald-600" : "h-4 w-4 text-emerald-600"} /><span className="text-sm font-semibold text-emerald-600">{Math.abs(Math.round(metric.result.delta * 10) / 10)} {metric.title === "Green Score" ? "improvement" : "reduction"}</span></> : <><TrendingUp className={metric.title === "Green Score" ? "h-4 w-4 rotate-180 text-red-600" : "h-4 w-4 text-red-600"} /><span className="text-sm font-semibold text-red-600">{Math.abs(Math.round(metric.result.delta * 10) / 10)} {metric.title === "Green Score" ? "decline" : "increase"}</span></>;
+                              if (isNeutral) return <><Minus className="h-4 w-4 text-muted-foreground" /><span className="text-sm text-muted-foreground">Move sliders to see impact</span></>;
+                              return isPositive ? <><TrendingDown className={metric.title === "Green Score" ? "h-4 w-4 rotate-180 text-primary" : "h-4 w-4 text-primary"} /><span className="text-sm font-semibold text-primary">{Math.abs(Math.round(metric.result.delta * 10) / 10)} {metric.title === "Green Score" ? "improvement" : "reduction"}</span></> : <><TrendingUp className={metric.title === "Green Score" ? "h-4 w-4 rotate-180 text-destructive" : "h-4 w-4 text-destructive"} /><span className="text-sm font-semibold text-destructive">{Math.abs(Math.round(metric.result.delta * 10) / 10)} {metric.title === "Green Score" ? "decline" : "increase"}</span></>;
                             })()}
                           </div>
-                          <div className="text-xs text-slate-500">
+                          <div className="text-xs text-muted-foreground">
                             Baseline: {Math.round(metric.result.baseline * 10) / 10}
                           </div>
                         </div>
@@ -455,7 +458,7 @@ export default function Dashboard() {
                 </div>
                 
                 {/* Data Sources & Disclaimers */}
-                <div className="text-xs text-slate-500 space-y-1 bg-slate-50 p-3 rounded-md border border-slate-100">
+                <div className="text-xs text-muted-foreground space-y-1 bg-muted/40 p-3 rounded-md border border-border">
                   <p><strong>Sources:</strong> CO₂ baseline: ~51 Mt (Published Study) | AQI: CPCB, updated live | Grid Factor: 0.710 tCO₂/MWh (CEA).</p>
                   <p><em>* This is a scenario estimate based on physical formulas, not a guaranteed prediction.</em></p>
                 </div>
@@ -538,7 +541,7 @@ export default function Dashboard() {
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="baseline_co2" fill="#94a3b8" name="Baseline CO₂" />
-                            <Bar dataKey="predicted_co2" fill="#3b82f6" name="Predicted CO₂" />
+                            <Bar dataKey="predicted_co2" fill="hsl(180,70%,30%)" name="Predicted CO₂" />
                           </BarChart>
                         </ResponsiveContainer>
                       </TabsContent>
@@ -552,7 +555,7 @@ export default function Dashboard() {
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="baseline_aqi" fill="#94a3b8" name="Baseline AQI" />
-                            <Bar dataKey="predicted_aqi" fill="#3b82f6" name="Predicted AQI" />
+                            <Bar dataKey="predicted_aqi" fill="hsl(180,70%,30%)" name="Predicted AQI" />
                           </BarChart>
                         </ResponsiveContainer>
                       </TabsContent>
@@ -566,7 +569,7 @@ export default function Dashboard() {
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="baseline_elec" fill="#94a3b8" name="Baseline Electricity" />
-                            <Bar dataKey="predicted_elec" fill="#3b82f6" name="Predicted Electricity" />
+                            <Bar dataKey="predicted_elec" fill="hsl(180,70%,30%)" name="Predicted Electricity" />
                           </BarChart>
                         </ResponsiveContainer>
                       </TabsContent>
@@ -580,7 +583,7 @@ export default function Dashboard() {
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="baseline_green" fill="#94a3b8" name="Baseline Green Score" />
-                            <Bar dataKey="predicted_green" fill="#3b82f6" name="Predicted Green Score" />
+                            <Bar dataKey="predicted_green" fill="hsl(180,70%,30%)" name="Predicted Green Score" />
                           </BarChart>
                         </ResponsiveContainer>
                       </TabsContent>
@@ -589,9 +592,9 @@ export default function Dashboard() {
                 </Card>
               </>
             ) : (
-              <Card className="flex h-96 items-center justify-center border-dashed border-emerald-200 bg-white/70">
+              <Card className="flex h-96 items-center justify-center border-dashed border-primary/20 bg-background">
                 <div className="text-center">
-                  <p className="text-slate-500 mb-4">Adjust policy levers and click "Run Simulation" to see results</p>
+                  <p className="text-muted-foreground mb-4">Adjust policy levers and click "Run Simulation" to see results</p>
                   <Badge variant="outline">Ready to simulate</Badge>
                 </div>
               </Card>
@@ -634,17 +637,17 @@ export default function Dashboard() {
 
         <Card className="mt-6">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Clock className="h-5 w-5 text-emerald-700" /> Recent simulations</CardTitle>
+            <CardTitle className="flex items-center gap-2 serif-heading"><Clock className="h-5 w-5 text-primary" /> Recent simulations</CardTitle>
             <CardDescription>Your latest 20 runs are saved in this browser.</CardDescription>
           </CardHeader>
           <CardContent>
             {simulationHistory.length ? <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {simulationHistory.map(item => <button key={item.id} type="button" onClick={() => { setSelectedCity(item.city); setLevers(item.levers as typeof levers); setSimulationResult(item.result); setLlmExplanation(null); }} className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-left transition hover:border-emerald-400 hover:bg-emerald-50">
-                <div className="flex items-center justify-between"><span className="font-semibold text-slate-900">{item.city}</span><RotateCcw className="h-4 w-4 text-emerald-700" /></div>
-                <p className="mt-1 text-xs text-slate-500">{new Date(item.timestamp).toLocaleString()}</p>
-                <p className="mt-3 text-sm text-slate-700">Green Score: <strong>{item.result.green_score.predicted.toFixed(1)}</strong> · CO2: <strong>{item.result.co2_emissions.predicted.toFixed(1)}</strong></p>
+              {simulationHistory.map(item => <button key={item.id} type="button" onClick={() => { setSelectedCity(item.city); setLevers(item.levers as typeof levers); setSimulationResult(item.result); setLlmExplanation(null); }} className="rounded-xl border border-border bg-muted/30 p-4 text-left transition hover:border-primary hover:bg-primary/5">
+                <div className="flex items-center justify-between"><span className="font-semibold text-foreground">{item.city}</span><RotateCcw className="h-4 w-4 text-primary" /></div>
+                <p className="mt-1 text-xs text-muted-foreground">{new Date(item.timestamp).toLocaleString()}</p>
+                <p className="mt-3 text-sm text-foreground">Green Score: <strong>{item.result.green_score.predicted.toFixed(1)}</strong> · CO2: <strong>{item.result.co2_emissions.predicted.toFixed(1)}</strong></p>
               </button>)}
-            </div> : <p className="py-4 text-sm text-slate-500">No simulations saved yet. Run a scenario and it will appear here.</p>}
+            </div> : <p className="py-4 text-sm text-muted-foreground">No simulations saved yet. Run a scenario and it will appear here.</p>}
           </CardContent>
         </Card>
       </div>

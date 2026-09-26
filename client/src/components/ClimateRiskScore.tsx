@@ -13,10 +13,10 @@ interface Props {
 }
 
 function getRiskLevel(score: number): { label: string; color: string; bg: string; bar: string } {
-  if (score >= 75) return { label: "CRITICAL", color: "text-red-700", bg: "bg-red-50 border-red-200", bar: "bg-red-500" };
+  if (score >= 75) return { label: "CRITICAL", color: "text-destructive", bg: "bg-destructive/5 border-destructive/30", bar: "bg-destructive" };
   if (score >= 55) return { label: "HIGH RISK", color: "text-orange-600", bg: "bg-orange-50 border-orange-200", bar: "bg-orange-500" };
-  if (score >= 35) return { label: "MODERATE", color: "text-yellow-600", bg: "bg-yellow-50 border-yellow-200", bar: "bg-yellow-500" };
-  return { label: "LOW RISK", color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200", bar: "bg-emerald-500" };
+  if (score >= 35) return { label: "MODERATE",  color: "text-yellow-600", bg: "bg-yellow-50 border-yellow-200", bar: "bg-yellow-500" };
+  return { label: "LOW RISK",  color: "text-primary", bg: "bg-primary/5 border-primary/20", bar: "bg-primary" };
 }
 
 export function ClimateRiskScore({ co2, co2Baseline, aqi, aqiBaseline, greenScore, electricityDemand, electricityBaseline }: Props) {
@@ -39,8 +39,8 @@ export function ClimateRiskScore({ co2, co2Baseline, aqi, aqiBaseline, greenScor
   return (
     <Card className={`border ${risk.bg}`}>
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <ShieldAlert className="h-5 w-5 text-slate-600" /> Climate Risk Assessment
+        <CardTitle className="flex items-center gap-2 text-base serif-heading">
+          <ShieldAlert className="h-5 w-5 text-muted-foreground" /> Climate Risk Assessment
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -60,7 +60,7 @@ export function ClimateRiskScore({ co2, co2Baseline, aqi, aqiBaseline, greenScor
             style={{ left: `calc(${score}% - 10px)` }}
           />
         </div>
-        <div className="flex justify-between text-xs text-slate-400">
+        <div className="flex justify-between text-xs text-muted-foreground/60">
           <span>LOW</span><span>MODERATE</span><span>HIGH</span><span>CRITICAL</span>
         </div>
 
@@ -69,10 +69,10 @@ export function ClimateRiskScore({ co2, co2Baseline, aqi, aqiBaseline, greenScor
           {factors.map((f) => (
             <div key={f.label}>
               <div className="flex justify-between text-xs mb-0.5">
-                <span className="text-slate-600">{f.label} <span className="text-slate-400">({f.weight})</span></span>
-                <span className="font-semibold text-slate-700">{f.value}</span>
+                <span className="text-muted-foreground">{f.label} <span className="text-muted-foreground/60">({f.weight})</span></span>
+                <span className="font-semibold text-foreground">{f.value}</span>
               </div>
-              <div className="h-1.5 rounded-full bg-slate-100">
+              <div className="h-1.5 rounded-full bg-muted">
                 <div className={`h-1.5 rounded-full ${risk.bar} transition-all duration-500`} style={{ width: `${f.value}%` }} />
               </div>
             </div>
