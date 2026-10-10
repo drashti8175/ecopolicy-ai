@@ -12,7 +12,7 @@
 
 ## 🔗 Live Demo
 
-> **[🚀 Launch EcoPolicy AI](https://ecopolicy-ai.onrender.com)** ← *(update after deploy)*
+> **[🚀 Launch EcoPolicy AI](https://ecopolicy-ai-1.onrender.com)**
 
 ---
 
