@@ -18,9 +18,10 @@ type Goal = (typeof GOALS)[number]["value"];
 interface Props {
   city: string;
   onApply: (levers: Record<string, number>) => void;
+  onApplyAndRun?: (levers: Record<string, number>) => void;
 }
 
-export function OptimizePanel({ city, onApply }: Props) {
+export function OptimizePanel({ city, onApply, onApplyAndRun }: Props) {
   const [goal, setGoal] = useState<Goal>("balanced");
   const [result, setResult] = useState<any>(null);
 
@@ -34,7 +35,7 @@ export function OptimizePanel({ city, onApply }: Props) {
     <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg serif-heading">
-          <Sparkles className="h-5 w-5 text-primary" /> AI Policy Optimizer
+          <Sparkles className="h-5 w-5 text-primary" /> Policy Optimizer
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -71,7 +72,7 @@ export function OptimizePanel({ city, onApply }: Props) {
 
         {result && (
           <div className="space-y-3 pt-1">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">AI Recommended Policy Plan</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Recommended Policy Plan</p>
             <div className="grid grid-cols-2 gap-2">
               {[
                 ["EV Adoption", result.recommended_levers.ev_adoption_pct],
@@ -113,7 +114,7 @@ export function OptimizePanel({ city, onApply }: Props) {
             </div>
 
             <Button
-              onClick={() => onApply(result.recommended_levers)}
+              onClick={() => (onApplyAndRun ?? onApply)(result.recommended_levers)}
               variant="outline"
               className="w-full border-primary text-primary hover:bg-primary/5"
             >

@@ -16,7 +16,7 @@ interface Props {
   baselineLevers: Levers;
 }
 
-// Mirrors server COEFF weights for CO₂ impact
+// Illustrative weights used by this UI; these are not trained feature-importance values.
 const IMPORTANCE = {
   ev_adoption_pct:             { label: "EV Adoption",       co2: 9,  aqi: 3.5 },
   public_transport_usage_pct:  { label: "Public Transport",  co2: 7,  aqi: 2.5 },
@@ -49,13 +49,13 @@ export function FeatureImportance({ levers, baselineLevers }: Props) {
     <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-base serif-heading">
-          <Brain className="h-5 w-5 text-secondary" /> Explainable AI — Factor Importance
+          <Brain className="h-5 w-5 text-secondary" /> Feature Impact Analysis
         </CardTitle>
-        <p className="text-xs text-muted-foreground">Why did the model predict this? Top drivers of CO₂ &amp; AQI change.</p>
+        <p className="text-xs text-muted-foreground">Illustrative relative weights assigned to policy levers in this scenario.</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">CO₂ Reduction Drivers</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Assumed CO₂ Weights</p>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={data} layout="vertical" margin={{ left: 8, right: 16 }}>
               <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
@@ -69,7 +69,7 @@ export function FeatureImportance({ levers, baselineLevers }: Props) {
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">AQI Improvement Drivers</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Assumed AQI Weights</p>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={data} layout="vertical" margin={{ left: 8, right: 16 }}>
               <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
@@ -83,7 +83,7 @@ export function FeatureImportance({ levers, baselineLevers }: Props) {
         </div>
 
         <p className="text-xs text-muted-foreground italic">
-          Importance scores reflect model coefficients. Levers not moved from baseline are shown dimmed.
+          Bars show assumed relative weights, not observed causal effects. Levers not moved from baseline are shown dimmed.
         </p>
       </CardContent>
     </Card>

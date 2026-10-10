@@ -38,7 +38,9 @@ export function AIPolicyAssistant({ city, context }: Props) {
     setMessages(updated);
     chatMutation.mutate({
       city,
-      messages: updated.filter((m) => m.role !== "system"),
+      messages: updated
+        .filter((m): m is Message & { role: "user" | "assistant" } => m.role === "user" || m.role === "assistant")
+        .map((m) => ({ role: m.role, content: m.content })),
       context,
     });
   };
@@ -47,7 +49,7 @@ export function AIPolicyAssistant({ city, context }: Props) {
     <Card className="border-indigo-100">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-base">
-          <Bot className="h-5 w-5 text-indigo-600" /> AI Policy Assistant
+          <Bot className="h-5 w-5 text-indigo-600" /> Policy Assistant
         </CardTitle>
         <p className="text-xs text-slate-500">Ask anything about climate policy for {city}</p>
       </CardHeader>
